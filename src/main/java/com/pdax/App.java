@@ -1,79 +1,59 @@
 package com.pdax;
 
-import com.pdax.utils.GenerateUtil;
-import freemarker.cache.FileTemplateLoader;
-import freemarker.cache.TemplateLoader;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import com.pdax.core.Generate;
+import com.pdax.core.GenerateCodeFactory;
+import com.pdax.core.factory.ApplicationGenerateFactory;
+import com.pdax.core.factory.DomainGenerateFactory;
+import com.pdax.core.factory.InterfacesGenerateFactory;
+import com.pdax.core.impl.ApplicationImpl;
+import com.pdax.pojo.TemplateEntity;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Hello world!
  *
  */
 @SpringBootApplication
-public class App 
-{
-    public static void main( String[] args ) throws IOException, TemplateException, ClassNotFoundException {
-        System.out.println( "Hello World!" );
+public class App {
 
-         //new GenerateUtil().createPO(Dictionary.class);
+    @Autowired
+    public static void main(String[] args) throws IOException, TemplateException, ClassNotFoundException {
+        System.out.println("Hello World!");
+
+
+        String poPackageName = "com.pdax.domain.dictionary.repository.po";
+        String basePOPackageName = "com.pdax.domain.base.po";
+
+        String repositoryPackageName = "com.pdax.domain.dictionary.repository";
+        String domainEntityPackageName = "com.pdax.domain.dictionary.enitity";
+        String domainServicePackageName="com.pdax.domain.dictionary.service";
+        String applicationServicePackageName="com.pdax.application.service";
+        String interfacePackageName="com.pdax.interfaces";
+
+        TemplateEntity t = new TemplateEntity();
+        t.setBasePackageName("com.pdax");
+        t.setBasePOPackageName(basePOPackageName);
+        t.setPoPackageName(poPackageName);
+        t.setAuthor("Fly Tiger");
+
+
+        GenerateCodeFactory generateCodeFactory=new ApplicationGenerateFactory();
+
+
+        generateCodeFactory.createFactory().createAll(Dictionary.class,t);
+
+        GenerateCodeFactory domainGenerateFactory = new DomainGenerateFactory();
+        Generate factory = domainGenerateFactory.createFactory();
+        factory.createAll(Dictionary.class,t);
+
+        GenerateCodeFactory interfacesGenerateFactory =new InterfacesGenerateFactory();
+        interfacesGenerateFactory.createFactory().createAll(Dictionary.class,t);
+
+
     }
 
-
-
-
-    public static void createPO() throws IOException, TemplateException {
-
-
-
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
-        //cfg.setDirectoryForTemplateLoading(new File(""));
-
-
-        String rootPath="E:\\person\\project\\dazhong\\trunk\\code\\pdax-generate-code\\src\\main\\resources\\";
-        TemplateLoader templateLoader=new FileTemplateLoader(
-                new File(rootPath));
-        //path="/WEB-INF/classes/com/xxx/tag/templates/page/xxx.ftl";
-        cfg.setTemplateLoader(templateLoader);
-
-
-        Template temp = cfg.getTemplate("/template/domain/PO.ftl");
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-
-
-
-        // Create the root hash
-        Map<String, Object> root = new HashMap<>();
-        root.put("poPackagerName","com.pdax.domain.base.po.Dictionary");
-        root.put("basePOPackageName", "com.pdax.domain.base.po.BasePO");
-        root.put("entityName","Dictionary");
-
-//        Map<String, Object> latest = new HashMap<>();
-//        root.put("latestProduct", latest);
-//        latest.put("url", "products/greenmouse.html");
-//        latest.put("name", "green mouse");
-
-        String  outPutPath="E:\\person\\project\\dazhong\\trunk\\code\\pdax-generate-code\\src\\main\\java\\com\\pdax\\";
-
-        FileOutputStream fos=new FileOutputStream("Dictionary.java");
-        //创建转换流对象，构造方法，绑定字节输出流
-        OutputStreamWriter osw=new OutputStreamWriter(fos,"UTF-8");
-
-
-
-//        Writer out = new OutputStreamWriter(System.out);
-
-        Writer out = new OutputStreamWriter(fos,"UTF-8");
-        temp.process(root, out);
-
-        out.close();
-    }
 }

@@ -11,7 +11,7 @@ import com.pdax.core.impl.InterfacesImpl;
 public class InterfacesGenerateFactory implements GenerateCodeFactory {
 
     @Override
-    public Generate createCode() {
+    public Generate createFactory() {
         return new InterfacesImpl();
     }
 }

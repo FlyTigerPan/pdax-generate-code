@@ -76,7 +76,7 @@ public class TemplateEntity extends BaseEntity{
     }
 
     public String getBasePackageName() {
-        return Optional.ofNullable(basePackageName).orElse("") ;
+        return Optional.ofNullable(basePackageName).orElse("com.pdax") ;
     }
 
     public void setBasePackageName(String basePackageName) {
@@ -158,7 +158,7 @@ public class TemplateEntity extends BaseEntity{
     }
 
     public String getOutPath() {
-        return outPath;
+        return  Optional.ofNullable(outPath).orElse("") ;
     }
 
     public void setOutPath(String outPath) {

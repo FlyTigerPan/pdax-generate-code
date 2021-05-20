@@ -15,5 +15,5 @@ public interface GenerateCodeFactory {
      * 创建
      * @return
      */
-    Generate createCode();
+    Generate createFactory();
 }

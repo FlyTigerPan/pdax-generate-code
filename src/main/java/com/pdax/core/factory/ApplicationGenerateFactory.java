@@ -12,7 +12,7 @@ public class ApplicationGenerateFactory implements GenerateCodeFactory {
 
 
     @Override
-    public Generate createCode() {
+    public Generate createFactory() {
         return new ApplicationImpl();
     }
 }

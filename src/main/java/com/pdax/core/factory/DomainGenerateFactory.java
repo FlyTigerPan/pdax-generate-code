@@ -12,7 +12,7 @@ import com.pdax.core.impl.DomainImpl;
 public class DomainGenerateFactory implements GenerateCodeFactory {
 
     @Override
-    public Generate createCode() {
+    public Generate createFactory() {
         return new DomainImpl();
     }
 }
