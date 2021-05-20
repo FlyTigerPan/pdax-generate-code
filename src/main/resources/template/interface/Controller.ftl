@@ -18,7 +18,11 @@ public class ${entityName}Controller {
  @Autowired
  ${entityName}AppService ${entityName?lower_case}AppService;
 
-
+ /**
+ *  查询无分页
+ * @param ${entityName}RequestDTO
+ * @return
+ */
  @GetMapping("list${entityName?lower_case}")
  @Security(validate = false)
  public CommonResponseBody list${entityName}(@Valid @RequestBody ${entityName}QueryDTO ${entityName?lower_case}QueryDTO) {
@@ -28,7 +32,11 @@ public class ${entityName}Controller {
   return CommonResponseBody.create(${entityName?lower_case}ionaries);
 
  }
-
+ /**
+ * 查询并分页
+ * @param dictionaryQueryDTO
+ * @return
+ */
  @GetMapping("list${entityName?lower_case}bypage")
  @Security(validate = false)
  public CommonResponseBody list${entityName}ByPage(@Valid @RequestBody ${entityName}QueryDTO ${entityName?lower_case}QueryDTO) {
@@ -36,9 +44,13 @@ public class ${entityName}Controller {
           ${entityName?lower_case}AppService.list${entityName}ByPager(${entityName}Assembler.${entityName?lower_case}QueryDTOToDO(${entityName?lower_case}QueryDTO));
   return CommonResponseBody.create(${entityName}Assembler.${entityName?lower_case}ResponseDTOPager(pager));
 
- }
 
 
+/**
+ * 获取单条记录
+ * @param dictionaryQueryDTO
+ * @return
+ */
  @GetMapping("get${entityName?lower_case}")
  @Security(validate = false)
  public CommonResponseBody get${entityName}(long id) {
@@ -47,6 +59,11 @@ public class ${entityName}Controller {
  }
 
 
+/**
+ * 新增
+ * @param ${entityName?lower_case}RequestDTO
+ * @return
+ */
  @PostMapping("insert${entityName?lower_case}")
  @Security(validate = false)
  public CommonResponseBody insert${entityName}(@Valid @RequestBody ${entityName}RequestDTO ${entityName?lower_case}RequestDTO) {
@@ -54,6 +71,11 @@ public class ${entityName}Controller {
   return CommonResponseBody.create(CommonConstant.SAVE_SUCCESS);
  }
 
+/**
+ * 更新
+ * @param ${entityName?lower_case}RequestDTO
+ * @return
+ */
  @PostMapping("update${entityName?lower_case}")
  @Security(validate = false)
  public CommonResponseBody update${entityName}(@Valid @RequestBody ${entityName}RequestDTO ${entityName?lower_case}RequestDTO) {
@@ -61,6 +83,11 @@ public class ${entityName}Controller {
   return CommonResponseBody.create(CommonConstant.SAVE_SUCCESS);
  }
 
+/**
+ * 删除一条记录
+ * @param id
+ * @return
+ */
  @GetMapping("del${entityName?lower_case}")
  @Security(validate = false)
  public CommonResponseBody del${entityName}(long id) {
