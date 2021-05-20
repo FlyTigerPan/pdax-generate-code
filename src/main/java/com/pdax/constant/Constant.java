@@ -11,7 +11,7 @@ public class Constant {
     public static final String REQUESTDTO_SUFFIX="RequestDTO.java";
     public static final String QUERYDTO_SUFFIX="QueryDTO.java";
     public static final String ASSEMBLER_SUFFIX="Assembler.java";
-    public static final String CONTROLLER_SUFFIX="Controller.java";
+    public static final String CONTROLLER_SUFFIX="Controller.ftl";
     //应用层
     public static final String APPLICATION_SUFFIX="AppService.java";
     //领域层
